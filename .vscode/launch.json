@@ -20,7 +20,7 @@
       "outFiles": ["${workspaceFolder}/extensions/vscode/out/extension.js"],
       "preLaunchTask": "vscode-extension:build",
       "env": {
-        // "CONTROL_PLANE_ENV": "local"
+        "CONTROL_PLANE_ENV": "local"
       }
     },
     {
@@ -29,7 +29,7 @@
       "name": "Core Binary",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/binary/out/index.js",
-      // "preLaunchTask": "binary:esbuild",
+      "preLaunchTask": "binary:esbuild",
       "outFiles": ["${workspaceFolder}/binary/out/**/*.js"],
       "sourceMaps": true,
       "smartStep": true,
@@ -66,9 +66,9 @@
         "webpack:///./src/*": "${webRoot}/*"
       },
       "port": 9222,
-      // "runtimeArgs": ["--remote-debugging-port=9222"],
-      "sourceMaps": true
-      // "preLaunchTask": "gui:dev"
+      "runtimeArgs": ["--remote-debugging-port=9222"],
+      "sourceMaps": true,
+      "preLaunchTask": "gui:dev"
     },
     // Has to be run after starting the server (separately or using the compound configuration)
     {
@@ -135,25 +135,25 @@
       "env": {
         "NODE_OPTIONS": "--experimental-vm-modules"
       }
+    },
+    {
+      "name": "[openai-adapters] Jest Test Debugger, Current Open File",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/packages/openai-adapters/node_modules/jest/bin/jest.js",
+        "--runInBand",
+        "--config",
+        "${workspaceRoot}/packages/openai-adapters/jest.config.mjs",
+        "${relativeFile}"
+      ],
+      "cwd": "${workspaceRoot}/packages/openai-adapters",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "NODE_OPTIONS": "--experimental-vm-modules"
+      }
     }
-    // {
-    //   "name": "[openai-adapters] Jest Test Debugger, Current Open File",
-    //   "type": "node",
-    //   "request": "launch",
-    //   "runtimeArgs": [
-    //     "--inspect-brk",
-    //     "${workspaceRoot}/packages/openai-adapters/node_modules/jest/bin/jest.js",
-    //     "--runInBand",
-    //     "--config",
-    //     "${workspaceRoot}/packages/openai-adapters/jest.config.mjs",
-    //     "${relativeFile}"
-    //   ],
-    //   "cwd": "${workspaceRoot}/packages/openai-adapters",
-    //   "console": "integratedTerminal",
-    //   "internalConsoleOptions": "neverOpen",
-    //   "env": {
-    //     "NODE_OPTIONS": "--experimental-vm-modules"
-    //   }
-    // }
   ]
 }
